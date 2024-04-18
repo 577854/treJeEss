@@ -6,7 +6,10 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.z = 15;
+let clock = new THREE.Clock();
+
+camera.position.x = 10;
+camera.position.y = 9;
 
 //Lights 
 const pointLight = new THREE.PointLight( 0xffffff, 100 );
@@ -36,13 +39,13 @@ groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 physicsWorld.addBody(groundBody);
 
 //create sphere and box
-//const radius = 1;
-//const sphereBody = new CANNON.Body({
-//    mass: 5,
-//    shape: new CANNON.Sphere(radius),
-//});
-//sphereBody.position.set(0,7,0);
-//physicsWorld.addBody(sphereBody);
+const radius = 2;
+const sphereBody = new CANNON.Body({
+    mass: 5,
+    shape: new CANNON.Sphere(radius),
+});
+sphereBody.position.set(0,7,0);
+physicsWorld.addBody(sphereBody);
 //
 //const boxBody = new CANNON.Body({
 //    mass: 5,
@@ -53,7 +56,7 @@ physicsWorld.addBody(groundBody);
 
 //create car
 const carBody = new CANNON.Body({
-    mass: 5,
+    mass: 10,
     position: new CANNON.Vec3(0,6,0),
     shape: new CANNON.Box(new CANNON.Vec3(4, 0.5, 2)),
 });
@@ -192,30 +195,110 @@ document.addEventListener('keyup', (event) => {
 //------------CANNON----------------------
 
 //Box
-//const BoxGeometry = new THREE.BoxGeometry( 2, 2, 2 );
-//const boxMat = new THREE.MeshNormalMaterial();
-//const boxMesh = new THREE.Mesh( BoxGeometry, boxMat );
-//
-////BALL
-//const geometry = new THREE.SphereGeometry(radius);
-//const material = new THREE.MeshNormalMaterial();
-//const sphereMesh = new THREE.Mesh(geometry, material);
+const BoxGeometry = new THREE.BoxGeometry( 8, 1, 4 );
+const boxMat = new THREE.MeshNormalMaterial();
+const boxMesh = new THREE.Mesh( BoxGeometry, boxMat );
 
-//scene.add(sphereMesh, boxMesh);
+//BALL
+const geometry = new THREE.SphereGeometry(radius);
+const material = new THREE.MeshNormalMaterial();
+const sphereMesh = new THREE.Mesh(geometry, material);
+
+//Ground
+const threePlane = new THREE.PlaneGeometry( 1000, 1000 );
+const planeMat = new THREE.MeshStandardMaterial( {color: 0xffffff} );
+const planeMesh = new THREE.Mesh( threePlane, planeMat );
+planeMesh.rotateX(-(Math.PI / 2));
+
+scene.add(sphereMesh, boxMesh, planeMesh);
 
 //Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 
-//Animate!!
-function animate(){
-    physicsWorld.fixedStep();
-    cannonDebugger.update();
-    //boxMesh.position.copy(boxBody.position);
-    //boxMesh.quaternion.copy(boxBody.quaternion);
-    //sphereMesh.position.copy(sphereBody.position);
-    //sphereMesh.quaternion.copy(sphereBody.quaternion);
-    requestAnimationFrame( animate );
-    renderer.render(scene, camera);
+//function that lets camera follow boxMesh position and rotation
+const cameraOffset = new THREE.Vector3(10.0,2.0,0.0);
+function followBoxMesh() {
+  //add some offet to the camera and rotate the camera to follow the front of the box
+  //camera.position.copy(boxMesh.position).add(cameraOffset);
+  //camera.rotation.copy(boxMesh.rotation);
+  let rotate = 0;
+
+  document.addEventListener('keydown', (event) => {
+    switch (event.key){
+      case 'a':
+      case 'ArrowLeft':
+        rotate += Math.PI / 2;
+        break;
+
+      case 'd':
+      case 'ArrowRight':
+        rotate -= Math.PI / 2;
+    }
+  });
+
+  var rotZ = Math.cos(rotate)
+  var rotX = Math.sin(rotate)
+  camera.position.x = boxMesh.position.x - rotate;
+  camera.position.y = boxMesh.position.y + 10;
+  camera.position.z = boxMesh.position.z - rotate;
+
+  camera.lookAt(boxMesh.position);
 }
 
+let rotation = 0;
+function moveCamera() {
+  var delta = clock.getDelta();
+  var sensitivity = 0.005;
+  var rotateAngle = Math.PI / 2 * delta * sensitivity;
+  document.addEventListener('keydown', (event) => {
+    switch (event.key){
+      case 'a':
+      case 'ArrowLeft':
+        rotation += rotateAngle;
+        break;
+
+      case 'd':
+      case 'ArrowRight':
+        rotation -= rotateAngle;
+        break;
+    }
+  });
+  var rotZ = Math.cos(rotation)
+  var rotX = Math.sin(rotation)
+  var distance = 20;
+  camera.position.x = boxMesh.position.x - (distance * rotX);
+  camera.position.y = boxMesh.position.y + 10;
+  camera.position.z = boxMesh.position.z - (distance * rotZ);
+  camera.lookAt(boxMesh.position);
+  camera.attach(boxMesh);
+}
+
+function addThing() {
+  const geometry = new THREE.SphereGeometry(0.25, 10, 10);
+  const material = new THREE.MeshBasicMaterial({color: 0xffffff});
+  const star = new THREE.Mesh(geometry, material);
+
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x, y, z);
+  scene.add(star);
+}
+//let arr = Array(200).fill().forEach(addThing);
+
+//Animate!!
+function animate(){
+  physicsWorld.fixedStep();
+  cannonDebugger.update();
+
+  boxMesh.position.copy(carBody.position);
+  boxMesh.quaternion.copy(carBody.quaternion);
+  sphereMesh.position.copy(sphereBody.position);
+  sphereMesh.quaternion.copy(sphereBody.quaternion);
+  
+  camera.lookAt(boxMesh.position);
+  boxMesh.attach(camera);
+
+  requestAnimationFrame( animate );
+  renderer.render(scene, camera);
+}
 animate();

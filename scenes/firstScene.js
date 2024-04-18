@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import * as CANNON from 'cannon-es'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {Sky} from 'three/examples/jsm/objects/Sky'
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -41,7 +41,8 @@ const ambientLight = new THREE.AmbientLight( 0xffffff ); // white ambient light
 const lighthelper = new THREE.PointLightHelper( pointLight ); //shows where light is
 
 //add everything to scene
-scene.add( cube, box, pointLight, ambientLight, sky );
+scene.add( cube, box, pointLight, ambientLight );
+scene.add(sky);
 
 //Renderer
 const renderer = new THREE.WebGLRenderer();
@@ -95,9 +96,9 @@ function animate() {
     cube.rotation.y += 0.01;
     box.rotation.x += 0.01;
     box.rotation.z += 0.01;
-    //if(!isMouseDown){
-    //    rotateCamera();
-    //}
+    if(!isMouseDown){
+        rotateCamera();
+    }
     //elevation += 0.01;
     //azimuth += 0.01;
     daytime(elevation, azimuth);
