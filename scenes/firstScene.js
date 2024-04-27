@@ -63,7 +63,7 @@ function addStar() {
     scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+let arr = Array(200).fill().forEach(addStar);
 
 let isMouseDown = false;
 // Listen for mouse down event
