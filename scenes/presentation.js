@@ -180,7 +180,7 @@ loader.load(
     "../island.glb",
     function(gltf){
         const model = gltf.scene;
-        model.position.set(-10, -200, 0);
+        model.position.set(-10, -205, 0);
         model.scale.set(0.015, 0.015, 0.015);
         model.rotation.y = 100;
         scene.add(model);
@@ -198,7 +198,7 @@ const planeTexture = new THREE.TextureLoader().load('../Perpective_Camera.png');
 const planeGeometry = new THREE.PlaneGeometry(20, 20);
 const planeMat = new THREE.MeshBasicMaterial({map: planeTexture, side: THREE.DoubleSide} )
 const plane = new THREE.Mesh(planeGeometry, planeMat);
-plane.position.y = -225;
+plane.position.y = -230;
 plane.position.x = -10;
 
 scene.add(plane);

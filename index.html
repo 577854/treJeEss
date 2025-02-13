@@ -9,7 +9,7 @@
 
 		<canvas id="bg"></canvas>
 
-		<main>
+		<!-- <main>
 			
 			<header>
 				<h1>3D og stuff</h1>
@@ -49,10 +49,12 @@
 			</section>
 
 			<section>
-				<h2>Rendering</h2>
+				<h2>Rendering Kamera og lys</h2>
 				<p>prossesen som generer 2D bilder ut ifra en 3D scene</p>
 				<p>Hvordan en visualiserer simulasjonen fra i datamaskinen på en skjerm</p>
 				<p>Rasterazation er vanligvis brukt i "real-time" applikasjoner som spill og Three.js</p>
+				<p>Kamera fanger opp hva som Renderer skal vise</p>
+				<p>Lys kan sette stemning i din verden</p>
 			</section>
 
 			<blockquote>
@@ -63,19 +65,20 @@
 				<h2>Scene</h2>
 				<p>Vår egen verden</p>
 				<p>Rommet hvor alt skjer</p>
+				<p>const scene = new THREE.Scene();</p>
 				
 			</section>
 
 			<section>
 				<h2>Camera</h2>
 				<p>Fanger opp det som vises på skjermen</p>
-				
+				<p>new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );</p>
 			</section>
 
 			<section>
 				<h2>Renderer</h2>
 				<p>Prosjektoren som skaper liv</p>
-			
+				<p>const renderer = new THREE.WebGLRenderer();</p>
 			</section>
 
 			<section>
@@ -83,10 +86,26 @@
 				<p>Geometries (Cubes, Spheres, Cones)</p>
 				<p>Materials (hvordan det ser ut)</p>
 				<p>Meshes (slår sammen Geometries og Materials)</p>
+				<p>legg til mesh i scene</p>
+				<p></p>
+				<p>texture loader for å hente bilder</p>
+				<p>gltf loader for å hente 3D objekter</p>
+				<p>masse hjelpemidler som orbitcontrols, Sky, fysikk motorer, etc.</p>
 			</section>
 
-		</main>
+			<section>
+				<h2>Andre ressurser</h2>
+				<p>Blender for 3D modelering</p>
+				<p>diverse bildeprogrammer for teksturer (paint, photoshop, etc.)</p>
+				<p>spillmotorer som Unity, Unreal Engine, Godot</p>
+			</section>
 
-		<script type="module" src="/scenes/presentation.js"></script>
+			<blockquote>
+				<p>Kode demo?</p>
+			</blockquote>
+
+		</main> -->
+
+		<script type="module" src="/scenes/demo.js"></script>
 	</body>
 </html>
