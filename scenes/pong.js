@@ -133,16 +133,7 @@ let previousRandNum = 0;
 function moveBall(){
     increaseSpeed += 0.001;
 
-    if(wallHitbox1.intersectsBox(ballHitbox)){
-        if(randNum < 0){
-            randNum = Math.abs(randNum);
-        }
-        else{
-            randNum = -randNum;
-        }
-    }
-
-    if(wallHitbox2.intersectsBox(ballHitbox)){
+    if(wallHitbox2.intersectsBox(ballHitbox) || wallHitbox1.intersectsBox(ballHitbox)){
         if(randNum < 0){
             randNum = Math.abs(randNum);
         }
@@ -155,16 +146,15 @@ function moveBall(){
         console.log("collision detected!!");
         moveBallLeft = true;
         moveBallRight = false;
-        randNum = doAngleCalc(previousRandNum);
-        previousRandNum = randNum;
     }
     if (hitbox2.intersectsBox(ballHitbox)){
         console.log("collision detected again!!");
-        moveBallRight = true;
         moveBallLeft = false;
-        randNum = doAngleCalc(previousRandNum);
-        previousRandNum = randNum;
+        moveBallRight = true;
     }
+    
+    randNum = doAngleCalc(previousRandNum);
+    previousRandNum = randNum;
     
     if(moveBallRight){
         ballMesh.position.x += 0.1 * increaseSpeed;
