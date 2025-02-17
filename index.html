@@ -3,11 +3,109 @@
 	<head>
 		<meta charset="utf-8">
 		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
+		
 	</head>
 	<body>
-		<script type="module" src="/scenes/pong.js"></script>
+
+		<canvas id="bg"></canvas>
+
+		<!-- <main>
+			
+			<header>
+				<h1>3D og stuff</h1>
+				<p>Gudsteinn Arnarson 13.02.2025</p>
+			</header>
+
+			<blockquote>
+				<p>Litt om 3D fundamentals og Three.js</p>
+			</blockquote>
+
+			<section>
+				<h2>Hva er 3D?</h2>
+				<p>3 akser (X, Y, Z)</p>
+				<p>Simulerer en verden med 3 akser med datamaskiner</p>
+				<p>Brukt til animering, dataspill, simulering, visualisering, etc.</p>
+			</section>
+
+			<section>
+				<h2>3D objekter</h2>
+				<p>Punkter i 3 dimensjoner (X, Y, Z)</p>
+				<p>2 punkter henger sammen via 1 "edge"</p>
+				<p>3 punker som henger sammen via 3 edger danner et polygon</p>
+				<p>Flere polygons danner 3D objekter som kan kalles Mesh</p>
+			</section>
+			
+			<section>
+				<h2>Transormasjoner av 3D objekter</h2>
+				<p>Translation (flytte på objekter)</p>
+				<p>Rotation (rotere objekter)</p>
+				<p>Scaling (endre størrelsen på objekter)</p>
+			</section>
+
+			<section>
+				<h2>Materials og textures</h2>
+				<p>aterialer definerer hvordan 3D objekter skal se ut</p>
+				<p>En tekstur er et 2D bilde som "wrappes" rundt et 3D objekt</p>
+			</section>
+
+			<section>
+				<h2>Rendering Kamera og lys</h2>
+				<p>prossesen som generer 2D bilder ut ifra en 3D scene</p>
+				<p>Hvordan en visualiserer simulasjonen fra i datamaskinen på en skjerm</p>
+				<p>Rasterazation er vanligvis brukt i "real-time" applikasjoner som spill og Three.js</p>
+				<p>Kamera fanger opp hva som Renderer skal vise</p>
+				<p>Lys kan sette stemning i din verden</p>
+			</section>
+
+			<blockquote>
+				<p>Three.js</p>
+			</blockquote>
+
+			<section>
+				<h2>Scene</h2>
+				<p>Vår egen verden</p>
+				<p>Rommet hvor alt skjer</p>
+				<p>const scene = new THREE.Scene();</p>
+				
+			</section>
+
+			<section>
+				<h2>Camera</h2>
+				<p>Fanger opp det som vises på skjermen</p>
+				<p>new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );</p>
+			</section>
+
+			<section>
+				<h2>Renderer</h2>
+				<p>Prosjektoren som skaper liv</p>
+				<p>const renderer = new THREE.WebGLRenderer();</p>
+			</section>
+
+			<section>
+				<h2>Three.js fundametals</h2>
+				<p>Geometries (Cubes, Spheres, Cones)</p>
+				<p>Materials (hvordan det ser ut)</p>
+				<p>Meshes (slår sammen Geometries og Materials)</p>
+				<p>legg til mesh i scene</p>
+				<p></p>
+				<p>texture loader for å hente bilder</p>
+				<p>gltf loader for å hente 3D objekter</p>
+				<p>masse hjelpemidler som orbitcontrols, Sky, fysikk motorer, etc.</p>
+			</section>
+
+			<section>
+				<h2>Andre ressurser</h2>
+				<p>Blender for 3D modelering</p>
+				<p>diverse bildeprogrammer for teksturer (paint, photoshop, etc.)</p>
+				<p>spillmotorer som Unity, Unreal Engine, Godot</p>
+			</section>
+
+			<blockquote>
+				<p>Kode demo?</p>
+			</blockquote>
+
+		</main> -->
+
+		<script type="module" src="/scenes/demo.js"></script>
 	</body>
 </html>
